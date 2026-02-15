@@ -110,7 +110,7 @@
 <body>
 
    <div class="header">
-        <h1>Das [Ihr Name]-Archiv</h1>
+        <h1>Das Hannah-Archiv</h1>
         <p class="subtitle">Beweisstücke aus 18 Jahren Systemlaufzeit.</p>
     </div>
 
