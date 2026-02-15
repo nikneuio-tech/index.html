@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex, nofollow">
-    <title>Version 18.0 | Hannah </title>
+    <title>Version 18.0 | Hannah</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Warme, dunkle Farbpalette */
-            --bg-color: #1a1a1c;
-            --card-bg: #252528;
-            --text-primary: #f0f0f0;
-            --text-secondary: #a0a0a5;
-            --accent: #d4af37; /* Ein warmer Goldton */
-            --shadow: 0 8px 30px rgba(0,0,0,0.3);
+            /* Neue helle, romantische Farbpalette */
+            --bg-color: #FAF5F5; /* Sehr weiches, helles Creme-Rosé */
+            --card-bg: #FFFFFF; /* Cleane weiße Karten */
+            --text-primary: #3A3335; /* Weiches Dunkelgrau/Braun statt hartem Schwarz */
+            --text-secondary: #968D8F; /* Elegantes, mittleres Grau */
+            --accent: #C28A94; /* Ein edles Altrosa / Roségold */
+            --shadow: 0 10px 30px rgba(180, 160, 165, 0.2); /* Sanfter, warmer Schatten */
         }
 
         body {
@@ -27,11 +27,9 @@
             padding: 20px;
             padding-top: 60px;
             -webkit-font-smoothing: antialiased;
-            /* Alles ist versteckt, bis die PIN stimmt */
             display: none; 
         }
 
-        /* Konfetti-Container */
         #confetti {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -59,7 +57,6 @@
             font-weight: 300;
         }
 
-        /* Das Galerie-Raster */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr); 
@@ -68,20 +65,17 @@
             margin: 0 auto;
         }
 
-        /* Einzelne Karte mit Hover-Effekt */
         .card {
             background-color: var(--card-bg);
             border-radius: 20px;
             padding: 12px;
             box-shadow: var(--shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            /* Start-Zustand für die Scroll-Animation */
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s forwards;
         }
 
-        /* Verzögerung für die einzelnen Karten, damit sie nacheinander einfliegen */
         .card:nth-child(1) { animation-delay: 0.2s; }
         .card:nth-child(2) { animation-delay: 0.4s; }
         .card:nth-child(3) { animation-delay: 0.6s; }
@@ -89,6 +83,7 @@
 
         .card:active {
             transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(180, 160, 165, 0.3);
         }
 
         .card img {
@@ -96,8 +91,7 @@
             aspect-ratio: 1 / 1; 
             object-fit: cover; 
             border-radius: 12px;
-            background-color: #333; /* Dunkler Platzhalter */
-            border: 1px solid rgba(255,255,255,0.05);
+            background-color: #F0EBEB; /* Heller Platzhalter */
         }
 
         .card-content {
@@ -135,7 +129,6 @@
             opacity: 0;
         }
 
-        /* Animations-Keyframes */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -198,37 +191,35 @@
     </div>
 
     <script>
-        // Euer Datum als PIN
         const richtigePIN = "25.03.2022"; 
         const pin = prompt("System gesperrt. Bitte Freischalt-PIN (Datum) eingeben:");
         
         if (pin === richtigePIN) {
             document.body.style.display = "block";
-            startHearts(); // Startet den Herz-Effekt
+            startHearts(); 
         } else {
             document.body.style.display = "block";
-            document.body.innerHTML = "<div style='display:flex; height:100vh; justify-content:center; align-items:center; flex-direction:column;'><h1 style='color:#ff453a; font-size:40px; margin:0;'>❌</h1><p style='color:#a0a0a5; font-family:sans-serif; margin-top:20px;'>Zugriff verweigert. Falsche PIN.</p></div>";
+            // Fehlerbildschirm ist jetzt auch an das helle Design angepasst
+            document.body.innerHTML = "<div style='display:flex; height:100vh; justify-content:center; align-items:center; flex-direction:column;'><h1 style='color:#C28A94; font-size:40px; margin:0;'>❌</h1><p style='color:#968D8F; font-family:sans-serif; margin-top:20px;'>Zugriff verweigert. Falsche PIN.</p></div>";
         }
 
-        // Herz-Regen Effekt
         function startHearts() {
-            const canvas = document.getElementById('confetti'); // Die ID bleibt für CSS gleich
+            const canvas = document.getElementById('confetti'); 
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             
             const particles = [];
-            // Edle Gold- und Weißtöne für die Herzen (passend zur Seite)
-            const colors = ['#d4af37', '#ffffff', '#ffebba', '#c59b27']; 
+            // Neue, romantische Herz-Farben (Altrosa, Zartrosa, Weiß)
+            const colors = ['#e09fa8', '#c97a86', '#f2d3d7', '#ffffff']; 
             
-            // 60 Herzen generieren
             for(let i=0; i<60; i++) { 
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height - canvas.height,
-                    size: Math.random() * 15 + 15, // Unterschiedliche Größen
+                    size: Math.random() * 15 + 15, 
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    speedY: Math.random() * 2 + 1.5, // Fall-Geschwindigkeit
+                    speedY: Math.random() * 2 + 1.5, 
                     speedX: Math.random() * 1 - 0.5
                 });
             }
@@ -238,12 +229,11 @@
                 for(let p of particles) {
                     ctx.font = p.size + "px Arial";
                     ctx.fillStyle = p.color;
-                    ctx.fillText("❤", p.x, p.y); // Zeichnet das Herz-Symbol
+                    ctx.fillText("❤", p.x, p.y); 
                     
                     p.y += p.speedY;
                     p.x += p.speedX;
                     
-                    // Lässt die Herzen flüssig oben neu starten, wenn sie unten rausfallen
                     if(p.y > canvas.height + 50) {
                         p.y = -50;
                         p.x = Math.random() * canvas.width;
@@ -253,7 +243,6 @@
             }
             draw();
             
-            // Herzen nach 5 Sekunden sanft ausblenden, damit man in Ruhe die Bilder ansehen kann
             setTimeout(() => { 
                 canvas.style.opacity = '0'; 
                 canvas.style.transition = 'opacity 2.5s ease-out'; 
