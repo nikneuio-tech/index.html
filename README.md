@@ -147,7 +147,7 @@
     <div class="footer">
         Version 18.0 erfolgreich installiert.<br>
         Happy Birthday! 🤍<br><br>
-        (Entwickelt von [Dein Name])
+        (Entwickelt von Niklas)
     </div>
 
    <script>
