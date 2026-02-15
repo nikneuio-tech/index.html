@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex, nofollow">
-    <title>Version 18.0 | Hannah</title>
+    <title>Version 18.0 | Hannah&Niklas</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* Neue helle, romantische Farbpalette */
-            --bg-color: #FAF5F5; /* Sehr weiches, helles Creme-Rosé */
-            --card-bg: #FFFFFF; /* Cleane weiße Karten */
-            --text-primary: #3A3335; /* Weiches Dunkelgrau/Braun statt hartem Schwarz */
-            --text-secondary: #968D8F; /* Elegantes, mittleres Grau */
-            --accent: #C28A94; /* Ein edles Altrosa / Roségold */
-            --shadow: 0 10px 30px rgba(180, 160, 165, 0.2); /* Sanfter, warmer Schatten */
+            /* Helle, romantische Farbpalette */
+            --bg-color: #FAF5F5; 
+            --card-bg: #FFFFFF; 
+            --text-primary: #3A3335; 
+            --text-secondary: #968D8F; 
+            --accent: #C28A94; 
+            --shadow: 0 10px 30px rgba(180, 160, 165, 0.2); 
         }
 
         body {
@@ -91,7 +91,7 @@
             aspect-ratio: 1 / 1; 
             object-fit: cover; 
             border-radius: 12px;
-            background-color: #F0EBEB; /* Heller Platzhalter */
+            background-color: #F0EBEB; 
         }
 
         .card-content {
@@ -145,7 +145,7 @@
     <canvas id="confetti"></canvas>
 
     <div class="header">
-        <h1>Happy Birthday, [Ihr Name]</h1>
+        <h1>Happy Birthday, Hannah</h1>
         <p class="subtitle">System-Update 18.0 erfolgreich installiert.<br>Hier ist unser Logbuch.</p>
     </div>
 
@@ -199,7 +199,6 @@
             startHearts(); 
         } else {
             document.body.style.display = "block";
-            // Fehlerbildschirm ist jetzt auch an das helle Design angepasst
             document.body.innerHTML = "<div style='display:flex; height:100vh; justify-content:center; align-items:center; flex-direction:column;'><h1 style='color:#C28A94; font-size:40px; margin:0;'>❌</h1><p style='color:#968D8F; font-family:sans-serif; margin-top:20px;'>Zugriff verweigert. Falsche PIN.</p></div>";
         }
 
@@ -210,8 +209,8 @@
             canvas.height = window.innerHeight;
             
             const particles = [];
-            // Neue, romantische Herz-Farben (Altrosa, Zartrosa, Weiß)
-            const colors = ['#e09fa8', '#c97a86', '#f2d3d7', '#ffffff']; 
+            // Verschiedene leuchtende Rot-Töne für die Herzen
+            const colors = ['#ff0000', '#cc0000', '#e60000', '#ff4d4d']; 
             
             for(let i=0; i<60; i++) { 
                 particles.push({
