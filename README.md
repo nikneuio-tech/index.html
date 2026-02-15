@@ -152,7 +152,7 @@
     <div class="gallery-grid">
         
         <div class="card">
-            <img src="bild1.jpg" alt="Foto 1">
+            <img src="bild1.jpeg" alt="Foto 1">
             <div class="card-content">
                 <p class="card-title">Patch 1.0</p>
                 <p class="card-desc">Das Modul "Erstes Date" wurde initialisiert. Wir waren beide extrem nervös.</p>
@@ -160,7 +160,7 @@
         </div>
 
         <div class="card">
-            <img src="bild2.jpg" alt="Foto 2">
+            <img src="bild2.jpeg" alt="Foto 2">
             <div class="card-content">
                 <p class="card-title">Bugfix #404</p>
                 <p class="card-desc">Orientierungssinn temporär offline. Trotzdem angekommen.</p>
@@ -168,7 +168,7 @@
         </div>
 
         <div class="card">
-            <img src="bild3.jpg" alt="Foto 3">
+            <img src="bild3.jpeg" alt="Foto 3">
             <div class="card-content">
                 <p class="card-title">Feature Update</p>
                 <p class="card-desc">Gemeinsamer Urlaub erfolgreich in die Datenbank geladen.</p>
@@ -176,7 +176,7 @@
         </div>
 
         <div class="card">
-            <img src="bild4.jpg" alt="Foto 4">
+            <img src="bild4.jpeg" alt="Foto 4">
             <div class="card-content">
                 <p class="card-title">Performance</p>
                 <p class="card-desc">Läuft seit dem 25.03.2022 erstaunlich stabil. Bestes Release bisher.</p>
