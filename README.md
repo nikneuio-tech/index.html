@@ -204,49 +204,60 @@
         
         if (pin === richtigePIN) {
             document.body.style.display = "block";
-            startConfetti(); // Startet den Effekt
+            startHearts(); // Startet den Herz-Effekt
         } else {
             document.body.style.display = "block";
             document.body.innerHTML = "<div style='display:flex; height:100vh; justify-content:center; align-items:center; flex-direction:column;'><h1 style='color:#ff453a; font-size:40px; margin:0;'>❌</h1><p style='color:#a0a0a5; font-family:sans-serif; margin-top:20px;'>Zugriff verweigert. Falsche PIN.</p></div>";
         }
 
-        // Simpler Konfetti-Effekt
-        function startConfetti() {
-            const canvas = document.getElementById('confetti');
+        // Herz-Regen Effekt
+        function startHearts() {
+            const canvas = document.getElementById('confetti'); // Die ID bleibt für CSS gleich
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
             
             const particles = [];
-            const colors = ['#d4af37', '#ffffff', '#ffebba'];
+            // Edle Gold- und Weißtöne für die Herzen (passend zur Seite)
+            const colors = ['#d4af37', '#ffffff', '#ffebba', '#c59b27']; 
             
-            for(let i=0; i<100; i++) {
+            // 60 Herzen generieren
+            for(let i=0; i<60; i++) { 
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height - canvas.height,
-                    size: Math.random() * 5 + 2,
+                    size: Math.random() * 15 + 15, // Unterschiedliche Größen
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    speedY: Math.random() * 3 + 1,
-                    speedX: Math.random() * 2 - 1
+                    speedY: Math.random() * 2 + 1.5, // Fall-Geschwindigkeit
+                    speedX: Math.random() * 1 - 0.5
                 });
             }
 
             function draw() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 for(let p of particles) {
+                    ctx.font = p.size + "px Arial";
                     ctx.fillStyle = p.color;
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                    ctx.fill();
+                    ctx.fillText("❤", p.x, p.y); // Zeichnet das Herz-Symbol
+                    
                     p.y += p.speedY;
                     p.x += p.speedX;
-                    if(p.y > canvas.height) p.y = 0;
+                    
+                    // Lässt die Herzen flüssig oben neu starten, wenn sie unten rausfallen
+                    if(p.y > canvas.height + 50) {
+                        p.y = -50;
+                        p.x = Math.random() * canvas.width;
+                    }
                 }
                 requestAnimationFrame(draw);
             }
             draw();
-            // Konfetti nach 4 Sekunden ausblenden
-            setTimeout(() => { canvas.style.opacity = '0'; canvas.style.transition = 'opacity 2s'; }, 4000);
+            
+            // Herzen nach 5 Sekunden sanft ausblenden, damit man in Ruhe die Bilder ansehen kann
+            setTimeout(() => { 
+                canvas.style.opacity = '0'; 
+                canvas.style.transition = 'opacity 2.5s ease-out'; 
+            }, 5000);
         }
     </script>
 </body>
