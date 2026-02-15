@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="robots" content="noindex, nofollow">
-    <title>Version 18.0 | [Ihr Name]</title>
+    <title>Version 18.0 | Hannah </title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
     
@@ -193,8 +193,8 @@
     </div>
 
     <div class="footer">
-        Alles Gute zur 18! 💛<br>
-        Code & Design von [Dein Name]
+        Alles Gute zur 18! ❤️<br>
+        Code & Design von Niklas
     </div>
 
     <script>
