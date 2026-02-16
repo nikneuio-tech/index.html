@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Version 18.0 | Hannah</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -19,13 +19,9 @@
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            font-family: 'Outfit', sans-serif; background-color: var(--bg-color);
+            color: var(--text-primary); margin: 0; padding: 0;
+            -webkit-font-smoothing: antialiased; overflow-x: hidden;
         }
 
         /* 1. SPERRBILDSCHIRM */
@@ -54,10 +50,8 @@
         #loading-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background-color: var(--bg-color); display: none; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 2000;
-            transition: opacity 1.5s ease-out;
+            justify-content: center; align-items: center; z-index: 2000; transition: opacity 1.5s ease-out;
         }
-        
         .beating-heart { font-size: 50px; color: #ff4d4d; animation: heartbeat 1.2s infinite; margin-bottom: 30px; }
         .loading-bar-container { width: 80%; max-width: 300px; height: 6px; background-color: #F0EBEB; border-radius: 3px; overflow: hidden; margin-bottom: 15px; }
         .loading-bar { height: 100%; width: 0%; background-color: var(--accent); transition: width 16s linear; }
@@ -75,66 +69,60 @@
         h1 { font-size: 32px; font-weight: 600; margin: 0; color: var(--accent); }
         p.subtitle { font-size: 16px; color: var(--text-secondary); margin-top: 10px; font-weight: 300; }
 
-        /* --- DER NEUE 3D POLAROID STAPEL (WOW-EFFEKT) --- */
-        .polaroid-stack {
+        /* --- DER NEUE SCRAPBOOK WOW-EFFEKT --- */
+        .scrapbook-container {
             position: relative;
             width: 100%;
-            max-width: 340px;
-            height: 420px; /* Höhe der Bilder */
+            max-width: 400px;
+            height: 450px;
             margin: 0 auto 60px auto;
-            perspective: 1000px;
-            animation: fadeInUp 1.5s ease-out;
         }
 
-        .polaroid {
+        .scrap-item {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
+            width: 55%; /* Bilder sind etwas mehr als halb so breit wie der Bildschirm */
             background: var(--card-bg);
-            padding: 15px 15px 85px 15px; /* Weißer Rahmen, unten mehr Platz für Text */
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            transition: all 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-sizing: border-box;
-            transform-origin: bottom center;
+            padding: 10px 10px 30px 10px; /* Polaroid-Style Rahmen */
+            border-radius: 4px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            /* Startposition: Unsichtbar und weit oben */
+            opacity: 0;
+            transform: translateY(-150px) scale(1.2) rotate(0deg);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); /* Cooler "Bouncy" Effekt beim Landen */
         }
 
-        .polaroid img {
+        .scrap-item img {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 1 / 1;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 2px;
             background-color: #F0EBEB;
         }
 
-        .polaroid-text {
-            position: absolute;
-            bottom: 25px; left: 15px; right: 15px;
+        .scrap-text {
+            font-family: 'Permanent Marker', cursive; /* Coole Handschrift für die Bilder */
+            font-size: 14px;
+            color: var(--text-primary);
             text-align: center;
+            margin-top: 12px;
+            transform: rotate(-2deg);
         }
 
-        .p-title { font-size: 16px; font-weight: 700; color: var(--accent); margin: 0; text-transform: uppercase; letter-spacing: 1px; }
-        .p-desc { font-size: 13px; color: var(--text-secondary); margin-top: 6px; font-weight: 300; line-height: 1.3;}
-
-        /* Die 3D-Zustände der Bilder im Stapel */
-        .polaroid.active { transform: translateY(0) scale(1) rotate(0deg); z-index: 3; opacity: 1; }
-        .polaroid.next { transform: translateY(20px) scale(0.95) rotate(3deg); z-index: 2; opacity: 0.8; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .polaroid.back { transform: translateY(40px) scale(0.9) rotate(-2deg); z-index: 1; opacity: 0.5; }
-        .polaroid.hidden { transform: translateY(60px) scale(0.85) rotate(1deg); z-index: 0; opacity: 0; }
-        
-        /* Die "Wegwerf"-Animation für das oberste Bild */
-        .polaroid.swipe-out { transform: translateX(120%) translateY(-50px) rotate(20deg) scale(1.05); opacity: 0; z-index: 4; }
+        /* Die finalen Positionen, wenn sie "gedroppt" sind */
+        .scrap-item:nth-child(1).dropped { opacity: 1; top: 0%; left: 0%; transform: rotate(-8deg); z-index: 1; }
+        .scrap-item:nth-child(2).dropped { opacity: 1; top: 12%; right: 0%; transform: rotate(12deg); z-index: 2; }
+        .scrap-item:nth-child(3).dropped { opacity: 1; top: 40%; left: 5%; transform: rotate(-5deg); z-index: 3; }
+        .scrap-item:nth-child(4).dropped { opacity: 1; top: 52%; right: 8%; transform: rotate(7deg); z-index: 4; }
 
         /* --- GALERIE & INTERAKTIVES --- */
         .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 600px; margin: 0 auto; }
-        .card { background-color: var(--card-bg); border-radius: 20px; padding: 12px; box-shadow: var(--shadow); opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; animation-delay: 1s; }
+        .card { background-color: var(--card-bg); border-radius: 20px; padding: 12px; box-shadow: var(--shadow); opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; animation-delay: 2.5s; }
         .card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; background-color: #F0EBEB; }
         .card-content { padding: 15px 5px 5px 5px; text-align: center; }
         .card-title { font-size: 14px; font-weight: 600; margin: 0; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
         .card-desc { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; font-weight: 300; }
 
-        .interactive-section { text-align: center; margin-top: 50px; opacity: 0; animation: fadeInUp 1s forwards; animation-delay: 1.5s;}
+        .interactive-section { text-align: center; margin-top: 50px; opacity: 0; animation: fadeInUp 1s forwards; animation-delay: 3s;}
         .action-btn { background-color: white; color: var(--text-primary); border: 2px solid var(--accent); padding: 15px 30px; border-radius: 25px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 16px; cursor: pointer; margin: 10px; width: 90%; max-width: 300px; transition: all 0.3s; }
         .action-btn:hover { background-color: var(--accent); color: white; }
         #generator-result { margin: 20px auto; width: 90%; transition: all 0.5s ease; }
@@ -164,7 +152,8 @@
     </div>
 
     <audio id="bg-music">
-        <source src="song.mp3" type="audio/mp3">
+        <source src="song.mp3" type="audio/mpeg">
+        <source src="song.m4a" type="audio/mp4">
     </audio>
 
     <div id="main-content">
@@ -175,47 +164,30 @@
             <p class="subtitle">System-Update 18.0 erfolgreich installiert.<br>Hier ist unser Logbuch.</p>
         </div>
 
-        <div class="polaroid-stack" id="polaroid-stack">
-            
-            <div class="polaroid active">
+        <div class="scrapbook-container" id="scrapbook">
+            <div class="scrap-item">
                 <img src="bild1.jpeg" alt="">
-                <div class="polaroid-text">
-                    <p class="p-title">Patch 1.0</p>
-                    <p class="p-desc">Das Modul "Erstes Date" wurde initialisiert. Wir waren beide extrem nervös.</p>
-                </div>
+                <div class="scrap-text">Patch 1.0</div>
             </div>
-            
-            <div class="polaroid next">
+            <div class="scrap-item">
                 <img src="bild2.jpeg" alt="">
-                <div class="polaroid-text">
-                    <p class="p-title">Bugfix #404</p>
-                    <p class="p-desc">Orientierungssinn temporär offline. Trotzdem angekommen.</p>
-                </div>
+                <div class="scrap-text">Error 404</div>
             </div>
-            
-            <div class="polaroid back">
+            <div class="scrap-item">
                 <img src="bild3.jpeg" alt="">
-                <div class="polaroid-text">
-                    <p class="p-title">Feature Update</p>
-                    <p class="p-desc">Gemeinsamer Urlaub erfolgreich in die Datenbank geladen.</p>
-                </div>
+                <div class="scrap-text">Update geladen</div>
             </div>
-
-            <div class="polaroid hidden">
+            <div class="scrap-item">
                 <img src="bild4.jpeg" alt="">
-                <div class="polaroid-text">
-                    <p class="p-title">Performance</p>
-                    <p class="p-desc">Läuft seit dem 25.03.2022 erstaunlich stabil. Bestes Release bisher.</p>
-                </div>
+                <div class="scrap-text">Seit 2022</div>
             </div>
-
         </div>
 
         <div class="gallery-grid">
-            <div class="card"><img src="bild1.jpeg" alt="Foto 1"><div class="card-content"><p class="card-title">Memory #1</p><p class="card-desc">Insider oder kurzer Text.</p></div></div>
-            <div class="card"><img src="bild2.jpeg" alt="Foto 2"><div class="card-content"><p class="card-title">Memory #2</p><p class="card-desc">Orientierungssinn temporär offline.</p></div></div>
-            <div class="card"><img src="bild3.jpeg" alt="Foto 3"><div class="card-content"><p class="card-title">Memory #3</p><p class="card-desc">Gemeinsamer Urlaub erfolgreich geladen.</p></div></div>
-            <div class="card"><img src="bild4.jpeg" alt="Foto 4"><div class="card-content"><p class="card-title">Memory #4</p><p class="card-desc">Läuft erstaunlich stabil.</p></div></div>
+            <div class="card"><img src="bild1.jpeg" alt="Foto 1"><div class="card-content"><p class="card-title">Memory #1</p><p class="card-desc">Das Modul "Erstes Date" wurde initialisiert. Wir waren beide extrem nervös.</p></div></div>
+            <div class="card"><img src="bild2.jpeg" alt="Foto 2"><div class="card-content"><p class="card-title">Memory #2</p><p class="card-desc">Orientierungssinn temporär offline. Trotzdem angekommen.</p></div></div>
+            <div class="card"><img src="bild3.jpeg" alt="Foto 3"><div class="card-content"><p class="card-title">Memory #3</p><p class="card-desc">Gemeinsamer Urlaub erfolgreich in die Datenbank geladen.</p></div></div>
+            <div class="card"><img src="bild4.jpeg" alt="Foto 4"><div class="card-content"><p class="card-title">Memory #4</p><p class="card-desc">Läuft erstaunlich stabil. Bestes Release bisher.</p></div></div>
         </div>
 
         <div class="interactive-section">
@@ -270,7 +242,15 @@
                             document.getElementById("loading-screen").style.display = "none";
                             document.getElementById("main-content").style.display = "block";
                             startHearts();
-                            startPolaroids(); // Startet den 3D Polaroid Wow-Effekt
+                            
+                            // Scrapbook Animation triggern (Bilder fallen nacheinander runter)
+                            const scraps = document.querySelectorAll('.scrap-item');
+                            scraps.forEach((scrap, index) => {
+                                setTimeout(() => {
+                                    scrap.classList.add('dropped');
+                                }, index * 400); // 400 Millisekunden Abstand zwischen jedem Bild
+                            });
+
                         }, 1000); 
                     }, 16000); 
 
@@ -279,36 +259,6 @@
             } else {
                 errorMsg.style.opacity = "1";
             }
-        }
-
-        // --- DER JS-CODE FÜR DEN 3D POLAROID STAPEL ---
-        function startPolaroids() {
-            let cards = document.querySelectorAll('.polaroid');
-            let currentIndex = 0;
-
-            setInterval(() => {
-                let topCard = cards[currentIndex];
-                
-                // Animation: Karte fliegt nach rechts oben weg
-                topCard.classList.remove('active');
-                topCard.classList.add('swipe-out');
-
-                // Die anderen Karten rücken nach vorne
-                let nextIndex = (currentIndex + 1) % cards.length;
-                let backIndex = (currentIndex + 2) % cards.length;
-                let hiddenIndex = (currentIndex + 3) % cards.length;
-
-                cards[nextIndex].className = 'polaroid active';
-                cards[backIndex].className = 'polaroid next';
-                cards[hiddenIndex].className = 'polaroid back';
-
-                // Wenn die weggeworfene Karte unsichtbar ist, stecken wir sie ganz nach hinten in den Stapel
-                setTimeout(() => {
-                    topCard.className = 'polaroid hidden';
-                }, 700); 
-
-                currentIndex = nextIndex;
-            }, 4000); // Alle 4 Sekunden wird geswiped
         }
 
         // --- GESCHENK-GENERATOR ---
