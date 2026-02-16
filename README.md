@@ -170,24 +170,24 @@
                 <div class="scrap-text">Patch 1.0</div>
             </div>
             <div class="scrap-item">
-                <img src="bild2.jpeg" alt="">
+                <img src="bild6.jpeg" alt="">
                 <div class="scrap-text">Error 404</div>
             </div>
             <div class="scrap-item">
-                <img src="bild3.jpeg" alt="">
+                <img src="bild7.jpeg" alt="">
                 <div class="scrap-text">Update geladen</div>
             </div>
             <div class="scrap-item">
-                <img src="bild4.jpeg" alt="">
+                <img src="bild6.jpeg" alt="">
                 <div class="scrap-text">Seit 2022</div>
             </div>
         </div>
 
         <div class="gallery-grid">
-            <div class="card"><img src="bild1.jpeg" alt="Foto 1"><div class="card-content"><p class="card-title">Memory #1</p><p class="card-desc">Das Modul "Erstes Date" wurde initialisiert. Wir waren beide extrem nervös.</p></div></div>
-            <div class="card"><img src="bild2.jpeg" alt="Foto 2"><div class="card-content"><p class="card-title">Memory #2</p><p class="card-desc">Orientierungssinn temporär offline. Trotzdem angekommen.</p></div></div>
-            <div class="card"><img src="bild3.jpeg" alt="Foto 3"><div class="card-content"><p class="card-title">Memory #3</p><p class="card-desc">Gemeinsamer Urlaub erfolgreich in die Datenbank geladen.</p></div></div>
-            <div class="card"><img src="bild4.jpeg" alt="Foto 4"><div class="card-content"><p class="card-title">Memory #4</p><p class="card-desc">Läuft erstaunlich stabil. Bestes Release bisher.</p></div></div>
+            <div class="card"><img src="bild5.jpeg" alt="Foto 1"><div class="card-content"><p class="card-title">Memory #1</p><p class="card-desc">Das Modul "Erstes mal zusammen im Ausland" wurde initialisiert.</p></div></div>
+            <div class="card"><img src="bild2.jpeg" alt="Foto 2"><div class="card-content"><p class="card-title">Memory #2</p><p class="card-desc">Beste Outfit wo gibt.</p></div></div>
+            <div class="card"><img src="bild4.jpeg" alt="Foto 3"><div class="card-content"><p class="card-title">Memory #3</p><p class="card-desc">Da waren wir noch gleich breit.</p></div></div>
+            <div class="card"><img src="bild3.jpeg" alt="Foto 4"><div class="card-content"><p class="card-title">Memory #4</p><p class="card-desc">Erster gemeinsamer Urlaub.</p></div></div>
         </div>
 
         <div class="interactive-section">
