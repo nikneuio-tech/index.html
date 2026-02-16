@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Version 18.0 | Hannah</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -86,7 +86,7 @@
         .card-title { font-size: 14px; font-weight: 600; margin: 0; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
         .card-desc { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; font-weight: 300; }
 
-        /* --- NEUER INTERAKTIVER BEREICH --- */
+        /* --- INTERAKTIVER BEREICH --- */
         .interactive-section {
             max-width: 600px;
             margin: 60px auto 0 auto;
@@ -114,13 +114,11 @@
         .action-btn:active { transform: scale(0.95); }
         .action-btn:hover { background-color: var(--accent); color: white; }
 
-        /* Generator Box */
+        /* Generator Box (Das Hacking-Terminal) */
         #generator-result {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--accent);
-            margin: 20px 0;
-            min-height: 30px;
+            margin: 20px auto;
+            width: 90%;
+            transition: all 0.5s ease;
         }
 
         /* Top Secret Box */
@@ -133,7 +131,7 @@
             font-size: 15px;
             line-height: 1.6;
             color: var(--text-primary);
-            display: none; /* Erstmal versteckt */
+            display: none; 
             border-left: 5px solid var(--accent);
             text-align: left;
         }
@@ -151,7 +149,7 @@
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <button class="music-btn" onclick="playMusic()" id="play-btn">🎵 Vibe aktivieren</button>
+    <button class="music-btn" onclick="playMusic()" id="play-btn">🎵 Bruno Mars aktivieren</button>
 
     <div class="header">
         <h1>Happy Birthday, Hannah</h1>
@@ -191,14 +189,14 @@
 
     <div class="interactive-section">
         
-        <button class="action-btn" onclick="startGenerator()">🎁 Geschenk-Modul starten</button>
+        <button class="action-btn" onclick="startGenerator()" id="gen-btn">🎁 Geschenk-Datenbank hacken</button>
         <div id="generator-result"></div>
 
         <button class="action-btn" onclick="toggleSecret()">✉️ System-Admin Nachricht</button>
         <div id="secret-box">
             Hey Hannah,<br><br>
             du weißt ganz genau, ich bin absolut nicht der Typ für kitschige Romane oder ellenlange Liebesbriefe. Das ist einfach null meine Art.<br><br>
-            Aber ich wollte dir trotzdem etwas schenken, das zeigt, wie wichtig du mir bist. Also hab ich mich hingesetzt und dir das hier auf meine Art gebaut. Danke für die geile Zeit seit 2022. <br><br>
+            Aber ich wollte dir trotzdem etwas schenken, das zeigt, wie  wichtig du mir bist. Also hab ich mich hingesetzt und dir das hier auf meine Art gebaut. Danke für die geile Zeit seit 2022. <br><br>
             Alles Gute zum 18. Geburtstag. Ich liebe dich!<br><br>
             Dein Niklas
         </div>
@@ -227,44 +225,67 @@
                 btn.style.backgroundColor = "#968D8F";
             } else {
                 music.pause();
-                btn.innerText = "🎵 Vibe aktivieren";
+                btn.innerText = "🎵 Bruno Mars aktivieren";
                 btn.style.backgroundColor = "var(--accent)";
             }
         }
 
-        // Geschenk-Generator (Spielautomat)
+        // Der NEUE Hacker-Geschenk-Generator
         function startGenerator() {
             const resultBox = document.getElementById("generator-result");
-            const btn = document.querySelector("button[onclick='startGenerator()']");
-            btn.disabled = true; // Button sperren während es läuft
+            const btn = document.getElementById("gen-btn");
+            btn.style.display = "none"; // Button sofort verstecken
             
-            // Witzige Fake-Geschenke
-            const fakeGifts = [
-                "Lade Datenbank...", 
-                "Gutschein für 1x Abwasch", 
-                "Ein feuchter Händedruck", 
-                "Ein gebrauchter Kaugummi", 
-                "Gutschein für 1x Recht haben", 
-                "Fehler im System...", 
-                "Socken"
-            ];
-            
-            // Das echte Geschenk!
-            const finalGift = "Ein Pandora-Anhänger für dein Armband 💍✨";
-            
-            let i = 0;
-            // Der "Rattern"-Effekt
-            let interval = setInterval(() => {
-                resultBox.innerText = fakeGifts[i % fakeGifts.length];
-                i++;
-            }, 150); // Alle 150 Millisekunden wechselt der Text
+            // Terminal-Design anwenden
+            resultBox.style.backgroundColor = "#1D1D1F";
+            resultBox.style.color = "#34C759"; // Hacker-Grün
+            resultBox.style.padding = "20px";
+            resultBox.style.borderRadius = "12px";
+            resultBox.style.fontFamily = "monospace";
+            resultBox.style.textAlign = "left";
+            resultBox.style.fontSize = "14px";
+            resultBox.style.boxShadow = "0 10px 30px rgba(0,0,0,0.5)";
 
-            // Nach 3 Sekunden stoppen und richtiges Geschenk zeigen
+            // Step 1: Text tippt sich langsam ein
+            resultBox.innerHTML = "> Initiiere Geschenk-Protokoll...<br>";
+            
+            setTimeout(() => { resultBox.innerHTML += "> Umgehe Firewall...<br>"; }, 1200);
+            setTimeout(() => { resultBox.innerHTML += "> Scanne Datenbank nach Loot...<br>"; }, 2400);
+            setTimeout(() => { resultBox.innerHTML += "> <span style='color:#FF3B30;'>WARNUNG:</span> Option 'Socken' blockiert.<br>"; }, 3800);
+            setTimeout(() => { resultBox.innerHTML += "> Starte Premium-Lootbox-Entschlüsselung:<br><br>"; }, 5000);
+
+            // Step 2: Der schnelle Matrix/Roulette Effekt
             setTimeout(() => {
-                clearInterval(interval);
-                resultBox.innerHTML = "<span style='color:#3A3335;'>System-Ergebnis:</span><br><span style='font-size:22px; font-weight:700;'>" + finalGift + "</span>";
-                btn.style.display = "none"; // Button verschwindet danach
-            }, 3000);
+                const fakeGifts = ["Gutschein für Abwasch", "Nichts", "Ein gebrauchter Kaugummi", "1x Recht haben"];
+                let i = 0;
+                let slotText = document.createElement("span");
+                slotText.style.color = "white";
+                slotText.style.backgroundColor = "black";
+                slotText.style.padding = "2px 5px";
+                resultBox.appendChild(slotText);
+
+                let interval = setInterval(() => {
+                    slotText.innerText = " " + fakeGifts[i % fakeGifts.length] + " %X&@!";
+                    i++;
+                }, 100); // Rattert sehr schnell
+
+                // Step 3: Das echte Geschenk wird enthüllt!
+                setTimeout(() => {
+                    clearInterval(interval);
+                    // Design ändert sich schlagartig zu hell/gold
+                    resultBox.style.backgroundColor = "var(--card-bg)";
+                    resultBox.style.border = "2px solid var(--accent)";
+                    resultBox.style.textAlign = "center";
+                    resultBox.style.color = "var(--text-primary)";
+                    resultBox.style.fontFamily = "'Outfit', sans-serif";
+                    
+                    resultBox.innerHTML = "<span style='font-size:12px; color:var(--text-secondary); text-transform:uppercase;'>System-Upgrade gefunden</span><br><br><span style='font-size:24px; font-weight:700; color:var(--accent); line-height:1.2;'>Ein Pandora-Anhänger für dein Armband 💍✨</span>";
+                    
+                    // Ein paar extra rote Herzen nur für den Reveal
+                    startHearts(); 
+                }, 3500);
+
+            }, 6000); // Startet nach dem Hacker-Text
         }
 
         // Top Secret Brief aufklappen
