@@ -178,7 +178,7 @@
                 <div class="scrap-text">Update geladen</div>
             </div>
             <div class="scrap-item">
-                <img src="bild6.jpeg" alt="">
+                <img src="bild8.jpeg" alt="">
                 <div class="scrap-text">Seit 2022</div>
             </div>
         </div>
