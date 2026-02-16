@@ -15,7 +15,7 @@
             --text-primary: #3A3335; 
             --text-secondary: #968D8F; 
             --accent: #C28A94; 
-            --shadow: 0 10px 30px rgba(180, 160, 165, 0.2); 
+            --shadow: 0 15px 35px rgba(180, 160, 165, 0.25); 
         }
 
         body {
@@ -25,6 +25,7 @@
             margin: 0;
             padding: 0;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         /* 1. SPERRBILDSCHIRM */
@@ -49,7 +50,7 @@
         .unlock-btn:active { transform: scale(0.95); }
         #error-msg { color: #ff4d4d; font-size: 14px; margin-top: 15px; opacity: 0; transition: opacity 0.3s; }
 
-        /* 2. DER SÜSSE 16-SEKUNDEN LADE-SCREEN */
+        /* 2. LADE-SCREEN (16 Sekunden) */
         #loading-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background-color: var(--bg-color); display: none; flex-direction: column;
@@ -57,57 +58,75 @@
             transition: opacity 1.5s ease-out;
         }
         
-        .beating-heart {
-            font-size: 50px; color: #ff4d4d;
-            animation: heartbeat 1.2s infinite; margin-bottom: 30px;
-        }
-
-        .loading-bar-container {
-            width: 80%; max-width: 300px; height: 6px;
-            background-color: #F0EBEB; border-radius: 3px; overflow: hidden;
-            margin-bottom: 15px;
-        }
-
-        .loading-bar {
-            height: 100%; width: 0%; background-color: var(--accent);
-            transition: width 16s linear; /* Lädt exakt 16 Sekunden lang! */
-        }
-        
+        .beating-heart { font-size: 50px; color: #ff4d4d; animation: heartbeat 1.2s infinite; margin-bottom: 30px; }
+        .loading-bar-container { width: 80%; max-width: 300px; height: 6px; background-color: #F0EBEB; border-radius: 3px; overflow: hidden; margin-bottom: 15px; }
+        .loading-bar { height: 100%; width: 0%; background-color: var(--accent); transition: width 16s linear; }
         .loading-text { font-size: 14px; color: var(--text-secondary); font-weight: 300; text-align: center; }
 
         @keyframes heartbeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.3); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.15); }
-            60% { transform: scale(1); }
+            0% { transform: scale(1); } 15% { transform: scale(1.3); } 30% { transform: scale(1); }
+            45% { transform: scale(1.15); } 60% { transform: scale(1); }
         }
 
-        /* 3. HAUPTINHALT (Wird bei Sekunde 16 sichtbar) */
-        #main-content {
-            display: none; padding: 40px 20px 80px 20px; max-width: 600px; margin: 0 auto;
-        }
-
+        /* 3. HAUPTINHALT */
+        #main-content { display: none; padding: 40px 20px 80px 20px; max-width: 600px; margin: 0 auto; }
         #confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
-
-        .header { text-align: center; margin-bottom: 30px; animation: fadeInDown 1.5s ease-out; }
+        .header { text-align: center; margin-bottom: 40px; animation: fadeInDown 1.5s ease-out; }
         h1 { font-size: 32px; font-weight: 600; margin: 0; color: var(--accent); }
         p.subtitle { font-size: 16px; color: var(--text-secondary); margin-top: 10px; font-weight: 300; }
 
-        /* --- DIE AUTOMATISCHE COLLAGE --- */
-        .collage-container {
-            background-color: var(--card-bg); border-radius: 20px; padding: 15px;
-            box-shadow: var(--shadow); position: relative; margin: 0 auto 50px auto;
+        /* --- DER NEUE 3D POLAROID STAPEL (WOW-EFFEKT) --- */
+        .polaroid-stack {
+            position: relative;
+            width: 100%;
+            max-width: 340px;
+            height: 420px; /* Höhe der Bilder */
+            margin: 0 auto 60px auto;
+            perspective: 1000px;
             animation: fadeInUp 1.5s ease-out;
         }
-        .image-frame { position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 15px; overflow: hidden; background-color: #F0EBEB; }
-        .collage-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.5s ease-in-out, transform 6s ease-in-out; transform: scale(1); }
-        .collage-img.active { opacity: 1; transform: scale(1.05); }
-        .text-frame { text-align: center; padding: 20px 10px 10px 10px; min-height: 70px; }
-        .collage-title { font-size: 16px; font-weight: 600; color: var(--accent); margin: 0; text-transform: uppercase; letter-spacing: 1px; transition: opacity 0.5s;}
-        .collage-desc { font-size: 14px; color: var(--text-secondary); margin-top: 8px; line-height: 1.5; font-weight: 300; transition: opacity 0.5s;}
 
-        /* --- DIE 4 FESTEN KACHELN --- */
+        .polaroid {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--card-bg);
+            padding: 15px 15px 85px 15px; /* Weißer Rahmen, unten mehr Platz für Text */
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: all 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-sizing: border-box;
+            transform-origin: bottom center;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #F0EBEB;
+        }
+
+        .polaroid-text {
+            position: absolute;
+            bottom: 25px; left: 15px; right: 15px;
+            text-align: center;
+        }
+
+        .p-title { font-size: 16px; font-weight: 700; color: var(--accent); margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .p-desc { font-size: 13px; color: var(--text-secondary); margin-top: 6px; font-weight: 300; line-height: 1.3;}
+
+        /* Die 3D-Zustände der Bilder im Stapel */
+        .polaroid.active { transform: translateY(0) scale(1) rotate(0deg); z-index: 3; opacity: 1; }
+        .polaroid.next { transform: translateY(20px) scale(0.95) rotate(3deg); z-index: 2; opacity: 0.8; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .polaroid.back { transform: translateY(40px) scale(0.9) rotate(-2deg); z-index: 1; opacity: 0.5; }
+        .polaroid.hidden { transform: translateY(60px) scale(0.85) rotate(1deg); z-index: 0; opacity: 0; }
+        
+        /* Die "Wegwerf"-Animation für das oberste Bild */
+        .polaroid.swipe-out { transform: translateX(120%) translateY(-50px) rotate(20deg) scale(1.05); opacity: 0; z-index: 4; }
+
+        /* --- GALERIE & INTERAKTIVES --- */
         .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 600px; margin: 0 auto; }
         .card { background-color: var(--card-bg); border-radius: 20px; padding: 12px; box-shadow: var(--shadow); opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; animation-delay: 1s; }
         .card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; background-color: #F0EBEB; }
@@ -115,7 +134,6 @@
         .card-title { font-size: 14px; font-weight: 600; margin: 0; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
         .card-desc { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; font-weight: 300; }
 
-        /* --- INTERAKTIVER BEREICH --- */
         .interactive-section { text-align: center; margin-top: 50px; opacity: 0; animation: fadeInUp 1s forwards; animation-delay: 1.5s;}
         .action-btn { background-color: white; color: var(--text-primary); border: 2px solid var(--accent); padding: 15px 30px; border-radius: 25px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 16px; cursor: pointer; margin: 10px; width: 90%; max-width: 300px; transition: all 0.3s; }
         .action-btn:hover { background-color: var(--accent); color: white; }
@@ -146,7 +164,7 @@
     </div>
 
     <audio id="bg-music">
-        <source src="song.mp3" type="audio/mpeg">
+        <source src="song.mp3" type="audio/mp4">
     </audio>
 
     <div id="main-content">
@@ -157,17 +175,40 @@
             <p class="subtitle">System-Update 18.0 erfolgreich installiert.<br>Hier ist unser Logbuch.</p>
         </div>
 
-        <div class="collage-container">
-            <div class="image-frame">
-                <img src="bild1.jpeg" class="collage-img active" id="img-0">
-                <img src="bild2.jpeg" class="collage-img" id="img-1">
-                <img src="bild3.jpeg" class="collage-img" id="img-2">
-                <img src="bild4.jpeg" class="collage-img" id="img-3">
+        <div class="polaroid-stack" id="polaroid-stack">
+            
+            <div class="polaroid active">
+                <img src="bild1.jpeg" alt="">
+                <div class="polaroid-text">
+                    <p class="p-title">Patch 1.0</p>
+                    <p class="p-desc">Das Modul "Erstes Date" wurde initialisiert. Wir waren beide extrem nervös.</p>
+                </div>
             </div>
-            <div class="text-frame">
-                <p class="collage-title" id="c-title">Patch 1.0</p>
-                <p class="collage-desc" id="c-desc">Das Modul "Erstes Date" wurde initialisiert. Wir waren beide extrem nervös.</p>
+            
+            <div class="polaroid next">
+                <img src="bild2.jpeg" alt="">
+                <div class="polaroid-text">
+                    <p class="p-title">Bugfix #404</p>
+                    <p class="p-desc">Orientierungssinn temporär offline. Trotzdem angekommen.</p>
+                </div>
             </div>
+            
+            <div class="polaroid back">
+                <img src="bild3.jpeg" alt="">
+                <div class="polaroid-text">
+                    <p class="p-title">Feature Update</p>
+                    <p class="p-desc">Gemeinsamer Urlaub erfolgreich in die Datenbank geladen.</p>
+                </div>
+            </div>
+
+            <div class="polaroid hidden">
+                <img src="bild4.jpeg" alt="">
+                <div class="polaroid-text">
+                    <p class="p-title">Performance</p>
+                    <p class="p-desc">Läuft seit dem 25.03.2022 erstaunlich stabil. Bestes Release bisher.</p>
+                </div>
+            </div>
+
         </div>
 
         <div class="gallery-grid">
@@ -200,28 +241,23 @@
             const errorMsg = document.getElementById("error-msg");
             
             if (input === richtigePIN) {
-                // PIN richtig!
                 errorMsg.style.opacity = "0";
                 
-                // 1. Sperrbildschirm weg, Ladescreen an!
                 document.getElementById("lock-screen").style.opacity = "0";
                 setTimeout(() => {
                     document.getElementById("lock-screen").style.display = "none";
                     document.getElementById("loading-screen").style.display = "flex";
                 }, 800);
 
-                // 2. MUSIK STARTEN (Intro läuft ab Sekunde 0)
                 try {
                     const music = document.getElementById("bg-music");
                     music.currentTime = 0; 
                     music.play();
                 } catch(err) { console.log("Audio konnte nicht gestartet werden."); }
 
-                // 3. LADEBALKEN & TEXT STARTEN (Dauert exakt 16 Sekunden)
                 setTimeout(() => {
                     document.getElementById("load-bar").style.width = "100%";
                     
-                    // Kleine Texte, die sich während der 16 Sekunden ändern
                     const loadText = document.getElementById("load-text");
                     setTimeout(() => { loadText.innerText = "Lade gemeinsame Momente... (24%)"; }, 4000);
                     setTimeout(() => { loadText.innerText = "Umgehe Cringe-Filter... (68%)"; }, 8000);
@@ -234,9 +270,9 @@
                             document.getElementById("loading-screen").style.display = "none";
                             document.getElementById("main-content").style.display = "block";
                             startHearts();
-                            startCollage(); 
-                        }, 1000); // 1 Sekunde für den sanften Übergang
-                    }, 16000); // 16.000 Millisekunden = 16 Sekunden!
+                            startPolaroids(); // Startet den 3D Polaroid Wow-Effekt
+                        }, 1000); 
+                    }, 16000); 
 
                 }, 1000);
 
@@ -245,31 +281,34 @@
             }
         }
 
-        // --- DIE AUTOMATISCHE COLLAGE ---
-        const memories = [
-            { title: "Patch 1.0", desc: "Das Modul 'Erstes Date' wurde initialisiert. Wir waren beide extrem nervös." },
-            { title: "Bugfix #404", desc: "Orientierungssinn temporär offline. Trotzdem angekommen." },
-            { title: "Feature Update", desc: "Gemeinsamer Urlaub erfolgreich in die Datenbank geladen." },
-            { title: "Performance", desc: "Läuft seit dem 25.03.2022 erstaunlich stabil. Bestes Release bisher." }
-        ];
-        let currentSlide = 0;
+        // --- DER JS-CODE FÜR DEN 3D POLAROID STAPEL ---
+        function startPolaroids() {
+            let cards = document.querySelectorAll('.polaroid');
+            let currentIndex = 0;
 
-        function startCollage() {
             setInterval(() => {
-                document.getElementById("img-" + currentSlide).classList.remove("active");
-                currentSlide = (currentSlide + 1) % memories.length;
-                document.getElementById("img-" + currentSlide).classList.add("active");
+                let topCard = cards[currentIndex];
                 
-                const titleEl = document.getElementById("c-title");
-                const descEl = document.getElementById("c-desc");
-                titleEl.style.opacity = 0; descEl.style.opacity = 0;
-                
+                // Animation: Karte fliegt nach rechts oben weg
+                topCard.classList.remove('active');
+                topCard.classList.add('swipe-out');
+
+                // Die anderen Karten rücken nach vorne
+                let nextIndex = (currentIndex + 1) % cards.length;
+                let backIndex = (currentIndex + 2) % cards.length;
+                let hiddenIndex = (currentIndex + 3) % cards.length;
+
+                cards[nextIndex].className = 'polaroid active';
+                cards[backIndex].className = 'polaroid next';
+                cards[hiddenIndex].className = 'polaroid back';
+
+                // Wenn die weggeworfene Karte unsichtbar ist, stecken wir sie ganz nach hinten in den Stapel
                 setTimeout(() => {
-                    titleEl.innerText = memories[currentSlide].title;
-                    descEl.innerText = memories[currentSlide].desc;
-                    titleEl.style.opacity = 1; descEl.style.opacity = 1;
-                }, 400);
-            }, 4500); 
+                    topCard.className = 'polaroid hidden';
+                }, 700); 
+
+                currentIndex = nextIndex;
+            }, 4000); // Alle 4 Sekunden wird geswiped
         }
 
         // --- GESCHENK-GENERATOR ---
