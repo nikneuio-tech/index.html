@@ -164,7 +164,7 @@
     </div>
 
     <audio id="bg-music">
-        <source src="song.mp3" type="audio/mp4">
+        <source src="song.mp3" type="audio/mp3">
     </audio>
 
     <div id="main-content">
