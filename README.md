@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Version 18.0 | Hannah</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fira+Code:wght@400;500&family=Permanent+Marker&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -16,7 +16,7 @@
             --text-secondary: #968D8F; 
             --accent: #C28A94; 
             --shadow: 0 15px 35px rgba(180, 160, 165, 0.25);
-            --terminal-green: #00ff00;
+            --terminal-green: #34C759;
         }
 
         body {
@@ -29,8 +29,7 @@
         #lock-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background-color: var(--bg-color); display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 3000;
-            transition: opacity 1s ease-out;
+            justify-content: center; align-items: center; z-index: 3000; transition: opacity 1s ease-out;
         }
         .lock-icon { font-size: 40px; margin-bottom: 20px; }
         .pin-input {
@@ -61,34 +60,11 @@
 
         /* 3. HAUPTINHALT */
         #main-content { display: none; padding: 40px 20px 80px 20px; max-width: 600px; margin: 0 auto; transition: opacity 1s ease-out; }
-        #confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
         .header { text-align: center; margin-bottom: 40px; animation: fadeInDown 1.5s ease-out; }
         h1 { font-size: 32px; font-weight: 600; margin: 0; color: var(--accent); }
         p.subtitle { font-size: 16px; color: var(--text-secondary); margin-top: 10px; font-weight: 300; }
 
-        /* DER NEUE TERMINAL-OVERLAY STIL */
-        #terminal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: black; z-index: 4000; display: none;
-            flex-direction: column; justify-content: center; align-items: flex-start;
-            padding: 40px; box-sizing: border-box; opacity: 0; transition: opacity 1s ease-in;
-        }
-        #typing-container {
-            font-family: 'Fira Code', monospace; color: var(--terminal-green);
-            font-size: 16px; line-height: 1.6; white-space: pre-wrap;
-        }
-        .cursor {
-            display: inline-block; width: 10px; height: 18px; background-color: var(--terminal-green);
-            margin-left: 5px; animation: blink 1s infinite;
-        }
-        #final-message {
-            font-family: 'Outfit', sans-serif; color: white; text-align: center; width: 100%;
-            margin-top: 50px; font-size: 28px; font-weight: 700; opacity: 0;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5); transition: opacity 2s ease-in;
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* Scrapbook & Galerie Styles (unverändert) */
+        /* --- SCRAPBOOK & GALERIE --- */
         .scrapbook-container { position: relative; width: 100%; max-width: 400px; height: 450px; margin: 0 auto 60px auto; }
         .scrap-item { position: absolute; width: 55%; background: var(--card-bg); padding: 10px 10px 30px 10px; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); opacity: 0; transform: translateY(-150px) scale(1.2) rotate(0deg); transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .scrap-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 2px; background-color: #F0EBEB; }
@@ -97,17 +73,57 @@
         .scrap-item:nth-child(2).dropped { opacity: 1; top: 12%; right: 0%; transform: rotate(12deg); z-index: 2; }
         .scrap-item:nth-child(3).dropped { opacity: 1; top: 40%; left: 5%; transform: rotate(-5deg); z-index: 3; }
         .scrap-item:nth-child(4).dropped { opacity: 1; top: 52%; right: 8%; transform: rotate(7deg); z-index: 4; }
+        
         .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 600px; margin: 0 auto; }
         .card { background-color: var(--card-bg); border-radius: 20px; padding: 12px; box-shadow: var(--shadow); opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s forwards; animation-delay: 2.5s; }
         .card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; background-color: #F0EBEB; }
         .card-content { padding: 15px 5px 5px 5px; text-align: center; }
         .card-title { font-size: 14px; font-weight: 600; margin: 0; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
         .card-desc { font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.4; font-weight: 300; }
+        
         .interactive-section { text-align: center; margin-top: 50px; opacity: 0; animation: fadeInUp 1s forwards; animation-delay: 3s;}
         .action-btn { background-color: white; color: var(--text-primary); border: 2px solid var(--accent); padding: 15px 30px; border-radius: 25px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 16px; cursor: pointer; margin: 10px; width: 90%; max-width: 300px; transition: all 0.3s; }
         .action-btn:hover { background-color: var(--accent); color: white; }
         #generator-result { margin: 20px auto; width: 90%; transition: all 0.5s ease; }
-        
+
+        /* --- DER NEUE KINO-TERMINAL & BOOM EFFEKT --- */
+        #terminal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #050505; z-index: 4000; display: none;
+            flex-direction: column; justify-content: center; align-items: center;
+            padding: 30px; box-sizing: border-box; opacity: 0; transition: opacity 1s ease-in;
+        }
+        #typing-container {
+            font-family: 'Fira Code', monospace; color: var(--terminal-green);
+            font-size: 16px; line-height: 1.6; white-space: pre-wrap; width: 100%; max-width: 500px;
+            text-align: left;
+        }
+        .cursor {
+            display: inline-block; width: 10px; height: 18px; background-color: var(--terminal-green);
+            margin-left: 5px; animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Der Kamera-Blitz beim Beat-Drop */
+        #flash-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: white; z-index: 5000; opacity: 0; pointer-events: none;
+            transition: opacity 1s ease-out; display: none;
+        }
+
+        /* Das "Ich liebe dich" am Ende */
+        #final-message {
+            position: absolute;
+            font-family: 'Outfit', sans-serif; color: white; text-align: center; width: 100%;
+            font-size: 38px; font-weight: 700; opacity: 0; transform: scale(0.8);
+            text-shadow: 0 0 30px rgba(255, 50, 50, 0.8), 0 0 60px rgba(255, 50, 50, 0.5);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none; line-height: 1.2;
+        }
+        #final-message span { font-size: 20px; font-weight: 400; color: #ffebba; display: block; margin-top: 15px; }
+
+        #confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4500; }
+
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -125,9 +141,7 @@
 
     <div id="loading-screen">
         <div class="beating-heart">❤</div>
-        <div class="loading-bar-container">
-            <div class="loading-bar" id="load-bar"></div>
-        </div>
+        <div class="loading-bar-container"><div class="loading-bar" id="load-bar"></div></div>
         <p class="loading-text" id="load-text">Entschlüssele Erinnerungen... (0%)</p>
     </div>
 
@@ -137,8 +151,6 @@
     </audio>
 
     <div id="main-content">
-        <canvas id="confetti"></canvas>
-
         <div class="header">
             <h1>Happy Birthday, Hannah</h1>
             <p class="subtitle">System-Update 18.0 erfolgreich installiert.<br>Hier ist unser Logbuch.</p>
@@ -161,18 +173,25 @@
         <div class="interactive-section">
             <button class="action-btn" onclick="startGenerator()" id="gen-btn">🎁 Geschenk-Datenbank hacken</button>
             <div id="generator-result"></div>
-
-            <button class="action-btn" onclick="startTerminalSequence()">✉️ System-Admin Nachricht</button>
+            <button class="action-btn" onclick="startCinematicFinale()">✉️ System-Admin Nachricht</button>
         </div>
     </div>
 
     <div id="terminal-overlay">
-        <div id="typing-container"></div><div class="cursor"></div>
-        <div id="final-message">Happy Birthday. Ich liebe dich.</div>
+        <div id="typing-container"></div><div class="cursor" id="cursor"></div>
+        <div id="final-message">Happy Birthday.<br>Ich liebe dich.<span>Dein Niklas</span></div>
     </div>
+    
+    <div id="flash-overlay"></div>
+    <canvas id="confetti"></canvas>
 
     <script>
         const richtigePIN = "25.03.2022"; 
+
+        // --- HIER IST DIE MAGISCHE ZAHL FÜR DEN SONG ---
+        // Wenn das Intro 16 Sekunden geht, fängt der Build-Up bei 61 Sekunden an (1:01).
+        // Wenn dein Song doch etwas anders geschnitten ist, kannst du diese Zahl einfach anpassen!
+        const buildUpStartSekunde = 61; 
 
         function checkPIN() {
             const input = document.getElementById("pin-input").value;
@@ -196,7 +215,7 @@
                         setTimeout(() => {
                             document.getElementById("loading-screen").style.display = "none";
                             document.getElementById("main-content").style.display = "block";
-                            startHearts();
+                            startNormalHearts(); // Kleine Herzen für den ersten Drop
                             const scraps = document.querySelectorAll('.scrap-item');
                             scraps.forEach((scrap, index) => { setTimeout(() => { scrap.classList.add('dropped'); }, index * 400); });
                         }, 1000); 
@@ -205,50 +224,68 @@
             } else { errorMsg.style.opacity = "1"; }
         }
 
-        // --- DER NEUE TERMINAL-GEHEIMBRIEF ---
-        function startTerminalSequence() {
-            // 1. Overlay anzeigen & Musik leiser machen
+        // --- DAS KINOREIFE FINALE (BEAT-SYNC) ---
+        function startCinematicFinale() {
             const overlay = document.getElementById('terminal-overlay');
             const mainContent = document.getElementById('main-content');
             const music = document.getElementById("bg-music");
+            const typingContainer = document.getElementById('typing-container');
             
+            // 1. Alles wird schwarz
             overlay.style.display = 'flex';
             setTimeout(() => { 
                 overlay.style.opacity = '1'; 
                 mainContent.style.opacity = '0';
-                // Musik sanft ausfaden
-                let vol = 1.0;
-                let fadeOut = setInterval(() => {
-                    if (vol > 0.2) { vol -= 0.05; music.volume = vol; } else { clearInterval(fadeOut); }
-                }, 100);
+                
+                // 2. Musik springt exakt zum Build-Up (1:01 Min) und wird kurz leise, dann wieder laut
+                music.volume = 0;
+                music.currentTime = buildUpStartSekunde; 
+                let vol = 0;
+                let fadeIn = setInterval(() => { if (vol < 1.0) { vol += 0.1; music.volume = vol.toFixed(1); } else { clearInterval(fadeIn); } }, 100);
             }, 100);
 
-            // 2. Schreibmaschinen-Effekt starten
-            // HIER IST DEIN TEXT MIT EUREN NAMEN:
-            const text = "> Initialisiere Admin-Nachricht...\n> Empfänger: Hannah\n> Absender: Niklas (SysAdmin)\n\nHey Hannah,\n\ndu weißt ganz genau, ich bin absolut nicht der Typ für kitschige Romane oder ellenlange Liebesbriefe. Das ist einfach null meine Art.\n\nAber ich wollte dir trotzdem etwas schenken, das zeigt, wie unfassbar wichtig du mir bist. Also hab ich mich hingesetzt und dir das hier auf meine Art gebaut.\n\nDanke für die geile Zeit seit 2022.\n\nAlles Gute zum 18. Geburtstag.\n\n> End of message._";
-            const typingContainer = document.getElementById('typing-container');
-            let i = 0;
+            // 3. TEXT-SYNCHRONISATION (Er singt "When I see your face...")
+            // Wir haben exakt 18 Sekunden Zeit, bis der Chorus "Cause girl you're amazing" knallt!
+            setTimeout(() => { typingContainer.innerHTML += "> Initialisiere Admin-Nachricht...\n"; }, 1500);
+            setTimeout(() => { typingContainer.innerHTML += "> Empfänger: Hannah\n"; }, 3500);
+            setTimeout(() => { typingContainer.innerHTML += "> Absender: Niklas (SysAdmin)\n\n"; }, 5000);
             
+            setTimeout(() => { typingContainer.innerHTML += "Hey Hannah,\n\n"; }, 7000);
+            setTimeout(() => { typingContainer.innerHTML += "ich bin absolut nicht der Typ für kitschige Romane oder Liebesbriefe.\n"; }, 9000);
+            setTimeout(() => { typingContainer.innerHTML += "Aber ich wollte dir trotzdem etwas schenken, das zeigt, wie wichtig du mir bist.\n"; }, 12500);
+            setTimeout(() => { typingContainer.innerHTML += "Danke für die geile Zeit seit 2022.\n\n"; }, 15500);
+            
+            setTimeout(() => { typingContainer.innerHTML += "> System Overload in 3... 2... 1..."; }, 17000);
+
+            // 4. DER MEGA BOOM (BEAT DROP BEI EXAKT 18 SEKUNDEN NACH START)
             setTimeout(() => {
-                function typeWriter() {
-                    if (i < text.length) {
-                        typingContainer.innerHTML += text.charAt(i);
-                        i++;
-                        // Zufällige Tipp-Geschwindigkeit für Realismus
-                        setTimeout(typeWriter, Math.random() * 50 + 30); 
-                    } else {
-                        // Wenn fertig getippt: Cursor weg, finale Nachricht anzeigen
-                        document.querySelector('.cursor').style.display = 'none';
-                        setTimeout(() => {
-                            document.getElementById('final-message').style.opacity = '1';
-                        }, 500);
-                    }
-                }
-                typeWriter();
-            }, 2000); // Startet 2 Sekunden nachdem der Bildschirm schwarz wurde
+                // Kamera-Blitz
+                const flash = document.getElementById('flash-overlay');
+                flash.style.display = 'block';
+                flash.style.opacity = '1';
+                
+                // Terminal Text weg
+                typingContainer.style.display = 'none'; 
+                document.getElementById('cursor').style.display = 'none';
+
+                // Supernova Explosion starten
+                startSupernova();
+
+                // Blitz blendet weich aus, Nachricht erscheint riesig
+                setTimeout(() => {
+                    flash.style.opacity = '0';
+                    const finalMsg = document.getElementById('final-message');
+                    finalMsg.style.display = 'block';
+                    setTimeout(() => { 
+                        finalMsg.style.opacity = '1'; 
+                        finalMsg.style.transform = 'scale(1)'; 
+                    }, 50);
+                }, 100);
+
+            }, 18000); // 18.000 Millisekunden = 18 Sekunden Build-Up!
         }
 
-        // --- GESCHENK-GENERATOR ---
+        // --- GESCHENK-GENERATOR (Bleibt gleich) ---
         function startGenerator() {
             const resultBox = document.getElementById("generator-result");
             document.getElementById("gen-btn").style.display = "none"; 
@@ -268,19 +305,72 @@
                     clearInterval(interval);
                     resultBox.style.backgroundColor = "var(--card-bg)"; resultBox.style.border = "2px solid var(--accent)"; resultBox.style.textAlign = "center"; resultBox.style.color = "var(--text-primary)"; resultBox.style.fontFamily = "'Outfit', sans-serif";
                     resultBox.innerHTML = "<span style='font-size:12px; color:var(--text-secondary); text-transform:uppercase;'>System-Upgrade gefunden</span><br><br><span style='font-size:24px; font-weight:700; color:var(--accent); line-height:1.2;'>Ein Pandora-Anhänger für dein Armband 💍✨</span>";
-                    startHearts(); 
+                    startNormalHearts(); 
                 }, 3500);
             }, 6000); 
         }
 
-        // --- HERZ-ANIMATION ---
-        function startHearts() {
+        // Normale kleine Herzen (Für Ladescreen & Generator)
+        function startNormalHearts() {
             const canvas = document.getElementById('confetti'); const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            const particles = []; const colors = ['#ff0000', '#cc0000', '#e60000', '#ff4d4d']; 
-            for(let i=0; i<60; i++) { particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, size: Math.random() * 15 + 15, color: colors[Math.floor(Math.random() * colors.length)], speedY: Math.random() * 2 + 1.5, speedX: Math.random() * 1 - 0.5 }); }
+            const particles = []; const colors = ['#ff0000', '#cc0000', '#e60000']; 
+            for(let i=0; i<40; i++) { particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, size: Math.random() * 15 + 10, color: colors[Math.floor(Math.random() * colors.length)], speedY: Math.random() * 2 + 1.5, speedX: Math.random() * 1 - 0.5 }); }
             function draw() { ctx.clearRect(0, 0, canvas.width, canvas.height); for(let p of particles) { ctx.font = p.size + "px Arial"; ctx.fillStyle = p.color; ctx.fillText("❤", p.x, p.y); p.y += p.speedY; p.x += p.speedX; if(p.y > canvas.height + 50) { p.y = -50; p.x = Math.random() * canvas.width; } } requestAnimationFrame(draw); }
-            draw(); setTimeout(() => { canvas.style.opacity = '0'; canvas.style.transition = 'opacity 2.5s ease-out'; }, 5000);
+            draw(); setTimeout(() => { canvas.style.opacity = '0'; canvas.style.transition = 'opacity 2.5s ease-out'; setTimeout(() => { ctx.clearRect(0,0, canvas.width, canvas.height); canvas.style.opacity = '1'; }, 2500); }, 4000);
+        }
+
+        // --- DIE MASSIVE SUPERNOVA FÜR DAS FINALE ---
+        function startSupernova() {
+            const canvas = document.getElementById('confetti'); 
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            
+            const particles = [];
+            const colors = ['#ff0000', '#ff4d4d', '#ffebba', '#d4af37', '#ffffff']; 
+            
+            // 200 Partikel, die von der Mitte aus explodieren!
+            for(let i=0; i<200; i++) { 
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 15 + 5; // Sehr schnell!
+                particles.push({
+                    x: canvas.width / 2, 
+                    y: canvas.height / 2,
+                    size: Math.random() * 25 + 10, 
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speedX: Math.cos(angle) * speed,
+                    speedY: Math.sin(angle) * speed,
+                    gravity: 0.2, // Fallen langsam nach unten
+                    life: 1.0 // Verblassen langsam
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+                
+                for(let p of particles) {
+                    if (p.life > 0) {
+                        alive = true;
+                        ctx.globalAlpha = p.life;
+                        ctx.font = p.size + "px Arial"; 
+                        ctx.fillStyle = p.color; 
+                        
+                        // Hälfte Herzen, Hälfte Sterne/Punkte
+                        if(Math.random() > 0.5) { ctx.fillText("❤", p.x, p.y); } 
+                        else { ctx.beginPath(); ctx.arc(p.x, p.y, p.size/3, 0, Math.PI*2); ctx.fill(); }
+                        
+                        p.x += p.speedX; 
+                        p.y += p.speedY;
+                        p.speedY += p.gravity; // Zieht sie nach unten
+                        p.life -= 0.005; // Verblassen extrem langsam
+                    }
+                }
+                
+                if(alive) { requestAnimationFrame(draw); } 
+                else { ctx.globalAlpha = 1.0; } // Reset
+            }
+            draw();
         }
     </script>
 </body>
